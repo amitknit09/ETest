@@ -1,0 +1,203 @@
+// login 
+
+{ 
+  username : <value>
+  password : <value>
+}
+
+// forget
+
+{
+ username : <value>
+}
+
+
+// Retrieve previous questions paper
+
+{
+  Name: <value>,
+  Author: <value>,
+  Questions: { 
+               Mcq: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   options : { 
+                                              option A : <string_value>,
+                                              option B : <string_value>,
+                                              option C : <string_value>,
+                                              option D : <string_value>
+                                             }
+				   correct_option : <value>
+                                   }
+		     <serial_no> : .....
+  
+                     },
+              Coding_problem: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   
+		     <serial_no> : .....
+  
+                     },
+              Open_Ended_question: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   
+		     <serial_no> : .....
+  
+                     }
+	     }
+}
+
+// Generate Test options
+
+{
+  Name : <string_value>,
+  Skill : <C# | C++ | ..>,
+  Role : <JuniorLevel | MidLevel | SeniorLevel>,
+  IncludeSystemDesign : <true | false>,
+  Difficulty : {
+                Easy : <value>, 
+                Medium : <value>, 
+                Hard : <value>
+               }
+
+}
+
+// Generate test
+
+{
+  Name: <value>,
+  Author: <value>,
+  Questions: { 
+               Mcq: {
+                      <serial_no> : {
+                                    id : <value>,
+		                    role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                    skill : <C# | C++ | ..>,
+                                    difficulty : <Easy | Medium | Hard>,
+                                    problem_statement : <string_value>, 
+                                    options : { 
+                                              option A : <string_value>,
+                                              option B : <string_value>,
+                                              option C : <string_value>,
+                                              option D : <string_value>
+                                             }
+                                    },
+                                    correct_option : <value>
+		      <serial_no> : .....
+  
+                     },
+              Coding_problem: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+				   
+                                   
+		     <serial_no> : .....
+  
+                     },
+              Open_Ended_question: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   
+		     <serial_no> : .....
+  
+                     }
+	     }
+}
+
+// Save Test
+
+{
+  Name: <value>,
+  Author: <value>,
+  Questions: { 
+               Mcq: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   options : { 
+                                              option A : <string_value>,
+                                              option B : <string_value>,
+                                              option C : <string_value>,
+                                              option D : <string_value>
+                                             }
+				   correct_option : <value>
+                                   }
+		     <serial_no> : .....
+  
+                     },
+              Coding_problem: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   
+		     <serial_no> : .....
+  
+                     },
+              Open_Ended_question: {
+                      <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+                                   
+		     <serial_no> : .....
+  
+                     }
+	     }
+}
+
+
+// Import Questions  
+
+{
+  <serial_no> : {
+                                   id : <value>,
+		                   role : <JuniorLevel | MidLevel | SeniorLevel>,
+                                   skill : <C# | C++ | ..>,
+                                   difficulty : <Easy | Medium | Hard>,
+                                   problem_statement : <string_value>, 
+				   
+                 }          
+  <serial_no> : .....
+
+}
+
+// Add manaully
+
+{
+  id : <value>
+  role : <junior | mid | senior>
+  skill : <C# | C++ | ..>,
+  difficulty : <Easy | Medium | hard>,
+  problem_statement : <string_value>,
+  correct option : <value | null>
+}
