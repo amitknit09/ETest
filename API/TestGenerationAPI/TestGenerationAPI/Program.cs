@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using TestGenerationAPI;
+using TestGenerationAPI.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,11 @@ builder.Services.Configure<TestGenerationSettings>(
     builder.Configuration.GetSection("TestGenerationDB"));
 
 builder.Services.AddSingleton<QuestionHandlingService>();
+builder.Services.AddSingleton<TestPaperHandlingService>();
+builder.Services.AddSingleton<TestPaperQuestionAssociationHandlingService>();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

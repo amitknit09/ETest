@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using TestGenerationAPI.Entity;
 
 namespace TestGenerationAPI
 {
@@ -18,7 +19,10 @@ namespace TestGenerationAPI
             _collectionName = settings.Value.TestPaperCollection;
         }
 
-
+        public TestPaperModel RetrieveTestPaper(string id)
+        {
+            return _db.GetCollection<TestPaperModel>(_collectionName).Find(id).First();
+        }
         public void SaveTestPaper(TestPaperModel model)
         {
             _db.GetCollection<TestPaperModel>(_collectionName).InsertOne(model);

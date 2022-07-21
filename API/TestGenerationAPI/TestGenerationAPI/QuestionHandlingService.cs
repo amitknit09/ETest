@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-using TestGenerationAPI;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using TestGenerationAPI.Entity;
 
 namespace TestGenerationAPI
 {
@@ -20,9 +21,14 @@ namespace TestGenerationAPI
             _collectionName = _settings.Value.QuestionsBankCollection;
         }
 
+        //public List<QuestionModel> RetrieveAllQuestions()
+        //{
+        //    return _db.GetCollection<QuestionModel>(_collectionName).Find(x => x.GetType() == typeof(QuestionModel));
+        //}
         public QuestionModel RetrieveQuestion(string id)
         {
-            return _db.GetCollection<QuestionModel>(_collectionName).Find(id).First();
+            var client = new MongoClient();
+            return _db.GetCollection<QuestionModel>(_collectionName).Find(x => x.QuestionId == id).First();
         }
         public void InsertQuestion(QuestionModel question)
         {
@@ -31,7 +37,7 @@ namespace TestGenerationAPI
 
         public void UpdateQuestion(string id, QuestionModel question)
         {
-            _db.GetCollection<QuestionModel>(_collectionName).ReplaceOne(id, question);
+            _db.GetCollection<QuestionModel>(_collectionName).ReplaceOne(x => x.QuestionId == id, question);
         }
 
         public void DeleteQuestion(string id)

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TestGenerationAPI
+namespace TestGenerationAPI.Entity
 {
     public enum RoleTypes
     {
@@ -22,13 +22,13 @@ namespace TestGenerationAPI
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string TestPaperId { get; set; }
+        public string TestPaperId { get; set; } = null!;
 
         public List<string> Skills { get; init; } = new List<string>();
 
         public RoleTypes RoleType { get; set; }
 
-        public string TestName { get; set; }
+        public string TestName { get; set; } = null!;
 
         public string Author { get; set; }
 
