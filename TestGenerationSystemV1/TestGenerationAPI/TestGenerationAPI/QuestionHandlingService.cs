@@ -21,28 +21,34 @@ namespace TestGenerationAPI
             _collectionName = _settings.Value.QuestionsBankCollection;
         }
 
-        //public List<QuestionModel> RetrieveAllQuestions()
-        //{
-        //    return _db.GetCollection<QuestionModel>(_collectionName).Find(x => x.GetType() == typeof(QuestionModel));
-        //}
+        public List<QuestionModel> RetrieveAllQuestions()
+        {
+            return _db.GetCollection<QuestionModel>(_collectionName).FindSync(x => x.IsActive == true).ToList();
+        }
+
         public QuestionModel RetrieveQuestion(string id)
         {
             var client = new MongoClient();
-            return _db.GetCollection<QuestionModel>(_collectionName).Find(x => x.QuestionId == id).First();
+            return _db.GetCollection<QuestionModel>(_collectionName)
+                .Find(x => x.QuestionId == id)
+                .First();
         }
         public void InsertQuestion(QuestionModel question)
         {
-            _db.GetCollection<QuestionModel>(_collectionName).InsertOne(question);
+            _db.GetCollection<QuestionModel>(_collectionName)
+                .InsertOne(question);
         }
 
         public void UpdateQuestion(string id, QuestionModel question)
         {
-            _db.GetCollection<QuestionModel>(_collectionName).ReplaceOne(x => x.QuestionId == id, question);
+            _db.GetCollection<QuestionModel>(_collectionName)
+                .ReplaceOne(x => x.QuestionId == id, question);
         }
 
         public void DeleteQuestion(string id)
         {
-            _db.GetCollection<QuestionModel>(_collectionName).DeleteOne(id);
+            _db.GetCollection<QuestionModel>(_collectionName)
+                .DeleteOne(id);
         }
     }
 }

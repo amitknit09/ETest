@@ -19,6 +19,11 @@ namespace TestGenerationAPI
             _collectionName = settings.Value.TestPaperCollection;
         }
 
+        public List<TestPaperModel> RetrieveAllTest()
+        {
+            return _db.GetCollection<TestPaperModel>(_collectionName).AsQueryable().ToList();
+        }
+
         public TestPaperModel RetrieveTestPaper(string id)
         {
             return _db.GetCollection<TestPaperModel>(_collectionName).Find(id).First();

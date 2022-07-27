@@ -19,8 +19,21 @@ namespace TestGenerationAPI.Controllers
             _testPaperQuestionAssociationHandling = testPaperQuestionAssociationHandling;
         }
 
+        [HttpGet("GetAllTest")]
+        public ActionResult<List<TestPaperModel>> GetAllTestPaper()
+        {
+            var tests = _testPaperHandlingService.RetrieveAllTest();
+
+            if(tests == null)
+            {
+                return NotFound();
+
+            }
+
+            return tests;
+        }
         [HttpGet]
-        public ActionResult<TestPaperModel> Get(string id)
+        public ActionResult<TestPaperModel> GetTestPaper(string id)
         {
             var test = _testPaperHandlingService.RetrieveTestPaper(id);
             if(test == null)
@@ -32,23 +45,33 @@ namespace TestGenerationAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromForm] TestPaperModel model,[FromForm] List<string> questionIds)
+        public ActionResult PostTestPaper([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
         {
             model.DateCreated = DateTime.Now;
             model.LastModified = DateTime.Now;
             _testPaperHandlingService.SaveTestPaper(model);
             _testPaperQuestionAssociationHandling
-                .AddEntry(new TestPaperQuestionAssociation { TestPaperId = model.TestPaperId, QuestionIds = questionIds });
+                .AddEntry(new TestPaperQuestionAssociation 
+                            { 
+                                TestPaperId = model.TestPaperId,
+                                QuestionIds = questionIds 
+                            });
+
             return NoContent();
         }
 
         [HttpPut]
-        public ActionResult Put([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
+        public ActionResult UpdateTestPaper([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
         {
             model.LastModified = DateTime.Now;
+            if (model.IsActive == false) model.DeactivatedOn = DateTime.Now;
             _testPaperHandlingService.UpdateTestPaper(model);
             _testPaperQuestionAssociationHandling
-                .UpdateEntry(model.TestPaperId, new TestPaperQuestionAssociation { TestPaperId = model.TestPaperId, QuestionIds = questionIds });
+                .UpdateEntry(model.TestPaperId, new TestPaperQuestionAssociation 
+                                                { 
+                                                    TestPaperId = model.TestPaperId,
+                                                    QuestionIds = questionIds 
+                                                });
             return NoContent();
         }
     }

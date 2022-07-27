@@ -22,7 +22,7 @@ namespace TestGenerationAPI.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string TestPaperId { get; set; } = null!;
+        public string TestPaperId = null!;
 
         public List<string> Skills { get; init; } = new List<string>();
 
@@ -30,17 +30,17 @@ namespace TestGenerationAPI.Entity
 
         public string TestName { get; set; } = null!;
 
-        public string Author { get; set; }
+        public string Author { get; set; } = null!;
 
         public bool IsActive { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated;
 
-        public DateTime LastModified { get; set; }
+        public DateTime LastModified;
 
-        public DateTime DeactivatedOn { get; set; }
+        public DateTime DeactivatedOn;
 
-        public string CopyOfTestPaper { get; set; }
+        public string CopyOfTestPaper { get; set; } = null!;
     }
 
 }

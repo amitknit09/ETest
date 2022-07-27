@@ -9,27 +9,40 @@ namespace TestGenerationAPI.Controllers
     {
         private readonly QuestionHandlingService _questionHandlingService;
 
-        
         public QuestionsController(QuestionHandlingService questionHandlingService)
         {
             _questionHandlingService = questionHandlingService;
         }
-        
-        [HttpGet]
-        public ActionResult<QuestionModel> Get(string id)
-        {
-            var questions = _questionHandlingService.RetrieveQuestion(id);
 
-            if(questions == null)
+
+        [HttpGet("GetAllQuestions")]
+        public ActionResult<List<QuestionModel>> Get()
+        {
+            var questions = _questionHandlingService.RetrieveAllQuestions();
+
+            if (questions == null)
+            {
+                return NotFound();
+            }
+
+            return questions;
+        }
+
+        [HttpGet]
+        public ActionResult<QuestionModel> GetQuestion(string id)
+        {
+            var question = _questionHandlingService.RetrieveQuestion(id);
+
+            if(question == null)
             {
                 return NotFound(); 
             }
             Console.WriteLine("hi");
-            return questions;
+            return question;
         }
 
         [HttpPost]
-        public ActionResult<QuestionModel> Post([FromForm] QuestionModel model)
+        public ActionResult<QuestionModel> PostQuestion([FromForm] QuestionModel model)
         {
             model.DateCreated = DateTime.Now;
             model.LastModified = DateTime.Now;
@@ -38,9 +51,8 @@ namespace TestGenerationAPI.Controllers
         }
 
         [HttpPut]
-        public ActionResult<QuestionModel> Put(string id, [FromForm] QuestionModel model)
-        {
-            
+        public ActionResult<QuestionModel> UpdateQuestion(string id, [FromForm] QuestionModel model)
+        {   
             model.LastModified = DateTime.Now;
             model.QuestionId = id;
             var ModelId = _questionHandlingService.RetrieveQuestion(id).QuestionId;

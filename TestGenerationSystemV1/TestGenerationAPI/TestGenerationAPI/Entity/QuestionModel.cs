@@ -8,11 +8,11 @@ namespace TestGenerationAPI.Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string QuestionId;
+        public string QuestionId = null!;
 
         public string QuestionName { get; set; } = null!;
 
-        public List<string> skill { get; init; } = new List<string>();
+        public List<string> Skill { get; init; } = new List<string>();
 
         public DifficultyLevels DifficultyLevel { get; set; }
 
@@ -27,11 +27,13 @@ namespace TestGenerationAPI.Entity
 
         public bool IsActive { get; set; }
 
+        public string Author { get; set; } = null!;
+
         public DateTime LastModified;
 
         public DateTime DateCreated;
 
-        public DateTime DeactivatedOn { get; set; }
+        public DateTime DeactivatedOn;
 
         public string CopyOff { get; set; } = null!;
 
