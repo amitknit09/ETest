@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using TestGenerationAPI.Entity;
 
-namespace TestGenerationAPI
+namespace TestGenerationAPI.services
 {
     public class TestPaperQuestionAssociationHandlingService
     {

@@ -3,11 +3,10 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using TestGenerationAPI.Entity;
 
-namespace TestGenerationAPI
+namespace TestGenerationAPI.services
 {
     public class QuestionHandlingService
     {
-
         private IOptions<TestGenerationSettings> _settings;
 
         private IMongoDatabase _db;
@@ -23,7 +22,9 @@ namespace TestGenerationAPI
 
         public List<QuestionModel> RetrieveAllQuestions()
         {
-            return _db.GetCollection<QuestionModel>(_collectionName).FindSync(x => x.IsActive == true).ToList();
+            return _db.GetCollection<QuestionModel>(_collectionName)
+                .FindSync(x => x.IsActive == true)
+                .ToList();
         }
 
         public QuestionModel RetrieveQuestion(string id)

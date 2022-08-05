@@ -7,5 +7,6 @@
         public string QuestionsBankCollection { get; set; } = null!;
         public string TestPaperCollection { get; set; } = null!;
         public string AssociationCollection { get; set; } = null!;
+        public string UserCollection { get; set; } = null!;
     }
 }

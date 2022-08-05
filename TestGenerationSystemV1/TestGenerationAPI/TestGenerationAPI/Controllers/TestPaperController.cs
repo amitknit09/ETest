@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestGenerationAPI.Entity;
+using TestGenerationAPI.services;
 
 namespace TestGenerationAPI.Controllers
 {
@@ -32,7 +33,7 @@ namespace TestGenerationAPI.Controllers
 
             return tests;
         }
-        [HttpGet]
+        [HttpGet("GetTestpaper")]
         public ActionResult<TestPaperModel> GetTestPaper(string id)
         {
             var test = _testPaperHandlingService.RetrieveTestPaper(id);
@@ -44,7 +45,7 @@ namespace TestGenerationAPI.Controllers
             return test;
         }
 
-        [HttpPost]
+        [HttpPost("CreateTestpaper")]
         public ActionResult PostTestPaper([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
         {
             model.DateCreated = DateTime.Now;
@@ -60,7 +61,7 @@ namespace TestGenerationAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("UpdateTestpaper")]
         public ActionResult UpdateTestPaper([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
         {
             model.LastModified = DateTime.Now;

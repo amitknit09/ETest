@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TestGenerationAPI.Entity;
+using TestGenerationAPI.services;
 
 namespace TestGenerationAPI.Controllers
 {
@@ -28,7 +32,7 @@ namespace TestGenerationAPI.Controllers
             return questions;
         }
 
-        [HttpGet]
+        [HttpGet("GetQuestion")]
         public ActionResult<QuestionModel> GetQuestion(string id)
         {
             var question = _questionHandlingService.RetrieveQuestion(id);
@@ -41,7 +45,8 @@ namespace TestGenerationAPI.Controllers
             return question;
         }
 
-        [HttpPost]
+        [HttpPost("CreateQuestion")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public ActionResult<QuestionModel> PostQuestion([FromForm] QuestionModel model)
         {
             model.DateCreated = DateTime.Now;
@@ -50,7 +55,7 @@ namespace TestGenerationAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("UpdateQuestion")]
         public ActionResult<QuestionModel> UpdateQuestion(string id, [FromForm] QuestionModel model)
         {   
             model.LastModified = DateTime.Now;
