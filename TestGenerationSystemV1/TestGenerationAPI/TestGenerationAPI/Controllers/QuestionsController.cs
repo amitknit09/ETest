@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using TestGenerationAPI.Entity;
 using TestGenerationAPI.services;
 
+
 namespace TestGenerationAPI.Controllers
 {
     [Route("[Controller]")]
@@ -32,6 +33,27 @@ namespace TestGenerationAPI.Controllers
             return questions;
         }
 
+        [HttpGet("GetQuestions")]
+        public ActionResult<List<QuestionModel>> GetQuestions(int numOfQuestions)
+        {
+            var questions = _questionHandlingService.RetrieveAllQuestions();
+            Random random = new Random();
+
+            if (questions == null)
+            {
+                return NotFound();
+            }
+            int len = questions.Count;
+
+            for(int i = 0; i < len - numOfQuestions; i++)
+            {
+                int num = random.Next() % questions.Count;
+                questions.RemoveAt(num);
+            }
+
+            return questions;
+        }
+
         [HttpGet("GetQuestion")]
         public ActionResult<QuestionModel> GetQuestion(string id)
         {
@@ -47,7 +69,7 @@ namespace TestGenerationAPI.Controllers
 
         [HttpPost("CreateQuestion")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
-        public ActionResult<QuestionModel> PostQuestion([FromForm] QuestionModel model)
+        public ActionResult<QuestionModel> PostQuestion(QuestionModel model)
         {
             model.DateCreated = DateTime.Now;
             model.LastModified = DateTime.Now;

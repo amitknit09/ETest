@@ -20,10 +20,12 @@ namespace TestGenerationAPI.Entity
 
     public class TestPaperModel
     {
+        [BsonElement("id")]
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string TestPaperId = null!;
 
+        public string PaperId => TestPaperId;
         public List<string> Skills { get; init; } = new List<string>();
 
         public RoleTypes RoleType { get; set; }

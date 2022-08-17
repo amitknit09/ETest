@@ -37,13 +37,13 @@ namespace TestGenerationAPI.Controllers
         }
 
         [HttpPost("Login")]
-        public IResult Login([FromBody] UserModel model)
+        public IResult Login([FromBody] UserData model)
         {
             UserModel loggedInUser = null;
-            if (!string.IsNullOrEmpty(model.Name) &&
+            if (!string.IsNullOrEmpty(model.UserName) &&
                     !string.IsNullOrEmpty(model.Password))
             {
-                loggedInUser = _userMangementService.UserLogin(model.Name, model.Password);
+                loggedInUser = _userMangementService.UserLogin(model.UserName, model.Password);
 
 
 

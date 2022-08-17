@@ -10,9 +10,11 @@ namespace TestGenerationAPI.Entity
         [BsonRepresentation(BsonType.ObjectId)]
         public string QuestionId = null!;
 
+        //public string QuestId => QuestionId;
+
         public string QuestionName { get; set; } = null!;
 
-        public List<string> Skill { get; init; } = new List<string>();
+        public string Skill { get; set; } 
 
         public DifficultyLevels DifficultyLevel { get; set; }
 
