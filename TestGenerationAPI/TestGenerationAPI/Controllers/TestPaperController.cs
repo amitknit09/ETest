@@ -67,7 +67,7 @@ namespace TestGenerationAPI.Controllers
         public ActionResult UpdateTestPaper([FromForm] TestPaperModel model, [FromForm] List<string> questionIds)
         {
             model.LastModified = DateTime.Now;
-            if (model.IsActive == false) model.DeactivatedOn = DateTime.Now;
+            if (model.IsActive == Active.NO) model.DeactivatedOn = DateTime.Now;
             _testPaperHandlingService.UpdateTestPaper(model);
             _testPaperQuestionAssociationHandling
                 .UpdateEntry(model.TestPaperId, new TestPaperQuestionAssociation 

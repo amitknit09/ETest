@@ -20,35 +20,36 @@ namespace TestGenerationAPI.services
             _collectionName = _settings.Value.QuestionsBankCollection;
         }
 
-        public List<QuestionModel> RetrieveAllQuestions()
+        public List<GetQuestionModel> RetrieveAllQuestions()
         {
-            return _db.GetCollection<QuestionModel>(_collectionName)
-                .FindSync(x => x.IsActive == true)
+            var questions = _db.GetCollection<GetQuestionModel>(_collectionName)
+                .FindSync(x => x.IsActive == Active.YES)
                 .ToList();
+            return questions;
         }
 
-        public QuestionModel RetrieveQuestion(string id)
+        public GetQuestionModel RetrieveQuestion(string id)
         {
             var client = new MongoClient();
-            return _db.GetCollection<QuestionModel>(_collectionName)
+            return _db.GetCollection<GetQuestionModel>(_collectionName)
                 .Find(x => x.QuestionId == id)
                 .First();
         }
-        public void InsertQuestion(QuestionModel question)
+        public void InsertQuestion(PostQuestionModel question)
         {
-            _db.GetCollection<QuestionModel>(_collectionName)
+            _db.GetCollection<PostQuestionModel>(_collectionName)
                 .InsertOne(question);
         }
 
-        public void UpdateQuestion(string id, QuestionModel question)
+        public void UpdateQuestion(string id, PostQuestionModel question)
         {
-            _db.GetCollection<QuestionModel>(_collectionName)
+            _db.GetCollection<PostQuestionModel>(_collectionName)
                 .ReplaceOne(x => x.QuestionId == id, question);
         }
 
         public void DeleteQuestion(string id)
         {
-            _db.GetCollection<QuestionModel>(_collectionName)
+            _db.GetCollection<PostQuestionModel>(_collectionName)
                 .DeleteOne(id);
         }
     }

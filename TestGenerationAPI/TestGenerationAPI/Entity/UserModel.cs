@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TestGenerationAPI.Entity
 {
-
     public class UserModel
     {
         [BsonId]

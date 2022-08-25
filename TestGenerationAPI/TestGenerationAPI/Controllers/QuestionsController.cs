@@ -8,6 +8,14 @@ using TestGenerationAPI.services;
 
 namespace TestGenerationAPI.Controllers
 {
+    public class FilterModel
+    {
+        public int numOfQuestions { get; set; }
+        public RoleTypes role { get; set; }
+
+        public DifficultyLevels difficulty { get; set; }
+        public string skill { get; set; } = null!;
+    }
     [Route("[Controller]")]
     [ApiController]
     public class QuestionsController : Controller
@@ -21,7 +29,7 @@ namespace TestGenerationAPI.Controllers
 
 
         [HttpGet("GetAllQuestions")]
-        public ActionResult<List<QuestionModel>> Get()
+        public ActionResult<List<GetQuestionModel>> Get()
         {
             var questions = _questionHandlingService.RetrieveAllQuestions();
 
@@ -33,29 +41,23 @@ namespace TestGenerationAPI.Controllers
             return questions;
         }
 
-        [HttpGet("GetQuestions")]
-        public ActionResult<List<QuestionModel>> GetQuestions(int numOfQuestions)
+        [HttpPost("GetQuestions")]
+        public ActionResult<List<GetQuestionModel>> GetQuestions(FilterModel model)
         {
             var questions = _questionHandlingService.RetrieveAllQuestions();
-            Random random = new Random();
+            
 
             if (questions == null)
             {
                 return NotFound();
             }
-            int len = questions.Count;
-
-            for(int i = 0; i < len - numOfQuestions; i++)
-            {
-                int num = random.Next() % questions.Count;
-                questions.RemoveAt(num);
-            }
-
-            return questions;
+           
+            var selectedQuestions = questions.Where(x => x.Skill == model.skill && x.RoleType == model.role && x.DifficultyLevel == model.difficulty).Take(model.numOfQuestions).ToList();
+            return selectedQuestions;
         }
 
         [HttpGet("GetQuestion")]
-        public ActionResult<QuestionModel> GetQuestion(string id)
+        public ActionResult<GetQuestionModel> GetQuestion(string id)
         {
             var question = _questionHandlingService.RetrieveQuestion(id);
 
@@ -68,8 +70,8 @@ namespace TestGenerationAPI.Controllers
         }
 
         [HttpPost("CreateQuestion")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
-        public ActionResult<QuestionModel> PostQuestion(QuestionModel model)
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        public ActionResult<PostQuestionModel> PostQuestion(PostQuestionModel model)
         {
             model.DateCreated = DateTime.Now;
             model.LastModified = DateTime.Now;
@@ -78,7 +80,7 @@ namespace TestGenerationAPI.Controllers
         }
 
         [HttpPut("UpdateQuestion")]
-        public ActionResult<QuestionModel> UpdateQuestion(string id, [FromForm] QuestionModel model)
+        public ActionResult<PostQuestionModel> UpdateQuestion(string id, [FromForm] PostQuestionModel model)
         {   
             model.LastModified = DateTime.Now;
             model.QuestionId = id;

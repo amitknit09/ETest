@@ -5,18 +5,23 @@ namespace TestGenerationAPI.Entity
 {
     public enum RoleTypes
     {
-        JUNIOR_LEVEL,
+        JUNIOR_LEVEL=0,
         MID_LEVEL,
         SENIOR_LEVEL
     };
 
     public enum DifficultyLevels
     {
-        EASY,
+        EASY=0,
         MEDIUM,
         HARD
     };
 
+    public enum Active
+    {
+        NO=0,
+        YES=1
+    }
 
     public class TestPaperModel
     {
@@ -34,7 +39,7 @@ namespace TestGenerationAPI.Entity
 
         public string Author { get; set; } = null!;
 
-        public bool IsActive { get; set; }
+        public Active IsActive { get; set; }
 
         public DateTime DateCreated;
 
