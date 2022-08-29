@@ -51,9 +51,10 @@ namespace TestGenerationAPI.Controllers
             {
                 return NotFound();
             }
-           
+           var random = new Random();
             var selectedQuestions = questions.Where(x => x.Skill == model.skill && x.RoleType == model.role && x.DifficultyLevel == model.difficulty).Take(model.numOfQuestions).ToList();
-            return selectedQuestions;
+            var randomQuestions = selectedQuestions.OrderBy(item => random.Next());
+            return randomQuestions.ToList();
         }
 
         [HttpGet("GetQuestion")]

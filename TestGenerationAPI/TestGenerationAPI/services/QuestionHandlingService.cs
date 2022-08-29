@@ -37,6 +37,14 @@ namespace TestGenerationAPI.services
         }
         public void InsertQuestion(PostQuestionModel question)
         {
+            var questions = RetrieveAllQuestions();
+            for(int i = 0; i < questions.Count; i++)
+            {
+                if (questions[i].ProblemStatement.ToLower() == question.ProblemStatement.ToLower())
+                {
+                    return; 
+                }
+            }
             _db.GetCollection<PostQuestionModel>(_collectionName)
                 .InsertOne(question);
         }
